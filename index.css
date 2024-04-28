@@ -1,0 +1,16 @@
+button {
+    border: none;
+    width: 180px;
+    height: 60px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 7px;
+    background-color:chocolate;
+    color: white;
+    text-transform: uppercase;
+}
+
+section {
+    margin: 3rem 0;
+
+}
