@@ -1,36 +1,29 @@
-const productsList = document.getElementById("productsList");
-const btn = document.querySelectorAll("button");
-const randomProductContainer = document.getElementById("randomProductContainer")
-btn[0].addEventListener("click",getAll);
-btn[1].addEventListener("click",getOne);
-
-const URL = "https://fakestoreapi.com/products/";
+const moviesContainer = document.getElementById("moviesContainer");
+const URL = "https://662de9aaa7dda1fa378b8b0c.mockapi.io/";
 function getAll (){
-  fetch(URL, { 
-    method: "get",
-  })
+  fetch(URL + "movies")
     .then(res => res.json())
-    .then(data => render(data));
+    .then(movies => renderMovies(movies));
 }
 
-function getOne () {
-    const randomID = Math.floor(Math.random() * 20 + 1);
-    fetch(URL+randomID, { 
-        method: "get",
-      })
-        .then(res => res.json())
-        .then(data => renderOne(data));
-}
-
-function render(data) {
-    productsList.childNodes.forEach(ch => ch.remove());
- for (product of data) {
-   const item = document.createElement("li");
-   item.textContent = `${product.title} - $${product.price}`;
-   productsList.appendChild(item);
+function renderMovies(movies) {
+ for (const movie of movies) {
+   const movieCard = document.createElement("article");
+   const movieData = `
+   <h3>${movie.title}</h3>
+   <p>${movie.year}</p>
+   <p>${movie.director}</p>
+   <p>${movie.genre.join(" - ")}</p>
+   <p>⚡rating: ${movie.rate}</p>
+   <img src="${movie.poster}" alt="${movie.title}"/>
+   `;
+   movieCard.innerHTML = movieData;
+   moviesContainer.appendChild(movieCard);
  }
 }
 
-function renderOne(data) {
-    randomProductContainer.textContent = `${data.title} - $${data.price}`;
+function clearProductsList() {
+    ProductsList.querySelectorAll("*").forEach(child =>child.remove());
 }
+
+getAll();
